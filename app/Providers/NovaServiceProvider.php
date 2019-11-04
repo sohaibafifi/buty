@@ -6,6 +6,7 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -30,8 +31,25 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function routes()
     {
+        Route::namespace('App\Nova\Http\Controllers\Auth')
+            ->as('nova.')
+            ->domain(config('nova.domain', null))
+            ->middleware(['web'])
+            ->prefix(Nova::path())
+            ->group(function () {
+                Route::get('/login', 'LoginController@showLoginForm');
+                Route::post('/login', 'LoginController@login')->name('login');
+            });
+        Route::namespace('Laravel\Nova\Http\Controllers')
+            ->domain(config('nova.domain', null))
+            ->middleware(config('nova.middleware', []))
+            ->as('nova.')
+            ->prefix(Nova::path())
+            ->group(function () {
+                Route::get('/logout', 'LoginController@logout')->name('logout');
+            });
         Nova::routes()
-                ->withAuthenticationRoutes()
+                //->withAuthenticationRoutes()
                 ->withPasswordResetRoutes()
                 ->register();
     }
@@ -46,9 +64,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return in_array($user->email, [
-                //
-            ]);
+            return $user->role == 'teacher';
         });
     }
 

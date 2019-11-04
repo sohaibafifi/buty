@@ -2,8 +2,9 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource as NovaResource;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 abstract class Resource extends NovaResource
 {
@@ -55,5 +56,12 @@ abstract class Resource extends NovaResource
     public static function relatableQuery(NovaRequest $request, $query)
     {
         return parent::relatableQuery($request, $query);
+    }
+
+    protected function scodocFields()
+    {
+        return [
+            Text::make(__('Scodoc Id'), 'scodocId')
+        ];
     }
 }
