@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use SemestreUser;
 use Illuminate\Notifications\Notifiable;
