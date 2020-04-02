@@ -19,7 +19,9 @@ class ResourceController extends Controller
         $model = "\\App\\Models\\" . Str::studly(Str::singular($resource));
         $resource = "\\App\\Http\\Resources\\" . Str::studly(Str::singular($resource));
         if (class_exists($model) && class_exists($resource)) {
-            return new $resource($model::find($id));
+            $item = $model::find($id);
+            $this->authorize('view', $item);
+            return new $resource($item);
         } else {
             return abort(404);
         }
