@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     protected $fillable = [
-        'name', 'scodocId',
+        'name', 'scodocId', 'scodoc_url'
     ];
     protected $hidden = [
         'scodoc_password', 'scodoc_user',

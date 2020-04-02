@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Repositories;
 
+use App\Models\Formation;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,21 +15,23 @@ class FormationRepository implements RepositoryInterface
     {
         $scodocId = $parent->scodocId;
         return $this->getJson(
-            'https://scoliut.univ-artois.fr/ScoDoc/' . $scodocId. '/Scolarite/Notes/formation_list',
+            $parent->scodoc_url . '/' . $scodocId . '/Scolarite/Notes/formation_list',
             [
-                                'auth' => [$parent->scodoc_user, $parent->scodoc_password]
-                            ]
+                'auth' => [$parent->scodoc_user, $parent->scodoc_password]
+            ]
         );
     }
 
     public function show($scodocId)
     {
-        $scodocId = $parent->scodocId;
+        $formation = Formation::where('scodocId', $scodocId)->first();
+        $parent = $formation->department;
+
         return $this->getJson(
-            'https://scoliut.univ-artois.fr/ScoDoc/' . $scodocId. '/Scolarite/Notes/formation_list?formation_id='.$scodocId,
+            $parent->scodoc_url . '/' . $scodocId . '/Scolarite/Notes/formation_list?formation_id=' . $scodocId,
             [
-                                'auth' => [$parent->scodoc_user, $parent->scodoc_password]
-                            ]
+                'auth' => [$parent->scodoc_user, $parent->scodoc_password]
+            ]
         );
     }
 }

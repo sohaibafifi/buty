@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\User;
-use App\Group;
-use App\Semestre;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Semestre;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\GroupsRepository;
 use App\Repositories\StudentsRepository;
@@ -24,18 +24,18 @@ class GroupObserver
         foreach ($scodoc_students as $scodoc_student) {
             $scodoc_student_info = (new StudentsRepository)->getFromScodc($group->semestre->formation->department, $scodoc_student->etudid);
             $user = User::where('email', $scodoc_student_info->email)->first();
-            if (! $user) {
+            if (!$user) {
                 $user = User::create([
-                        'username' => $scodoc_student_info->email,
-                        'email'    => $scodoc_student_info->email,
-                        'password' => Hash::make($scodoc_student_info->code_nip),
-                        'firstname'=> $scodoc_student_info->prenom,
-                        'lastname' => $scodoc_student_info->nom,
-                        'role'     => 'student',
-                        'scodocId' => $scodoc_student_info->etudid,
-                        'scodoc_picture' => $scodoc_student_info->photo_url,
-                        'nip'      => $scodoc_student_info->code_nip,
-                        'ine'      => $scodoc_student_info->code_ine,
+                    'username' => $scodoc_student_info->email,
+                    'email'    => $scodoc_student_info->email,
+                    'password' => Hash::make($scodoc_student_info->code_nip),
+                    'firstname' => $scodoc_student_info->prenom,
+                    'lastname' => $scodoc_student_info->nom,
+                    'role'     => 'student',
+                    'scodocId' => $scodoc_student_info->etudid,
+                    'scodoc_picture' => $scodoc_student_info->photo_url,
+                    'nip'      => $scodoc_student_info->code_nip,
+                    'ine'      => $scodoc_student_info->code_ine,
                 ]);
             }
             $group->users()->attach($user);

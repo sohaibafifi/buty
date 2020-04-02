@@ -17,10 +17,11 @@ class Department extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'scodoc_url' => $this->scodoc_url,
             'scodoc_id' => $this->scodoc_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'formations' => Formation::collection($this->formations)
+            'formations' => Formation::collection($this->formations()->has('semestres')->get())
         ];
     }
 }

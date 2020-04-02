@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Semestre;
+use App\Models\Semestre;
 use App\Repositories\GroupsRepository;
 
 class SemestreObserver
@@ -22,9 +22,9 @@ class SemestreObserver
                     foreach ($scodoc_partition->group as $scodoc_group) {
                         if ($scodoc_group->group_name) {
                             $semestre->groups()->firstOrCreate([
-                                                'name' => $scodoc_partition->partition_name . ' ' . $scodoc_group->group_name,
-                                                'scodocId' => $scodoc_group->group_id
-                                            ]);
+                                'name' => $scodoc_partition->partition_name . ' ' . $scodoc_group->group_name,
+                                'scodocId' => $scodoc_group->group_id
+                            ]);
                         }
                     }
                 }

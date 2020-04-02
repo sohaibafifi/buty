@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Formation;
+use App\Models\Formation;
 use App\Repositories\SemestresRepository;
 
 class FormationObserver
@@ -18,10 +18,11 @@ class FormationObserver
         $scodoc_semestres = (new SemestresRepository)->all($formation);
         if ($scodoc_semestres) {
             foreach ($scodoc_semestres as $scodoc_semestre) {
-                $formation->semestres()->firstOrCreate([
-                    'name' => $scodoc_semestre->titremois,
-                    'scodocId' => $scodoc_semestre->formsemestre_id
-                ]);
+                if ($scodoc_semestre->etat == "1")
+                    $formation->semestres()->firstOrCreate([
+                        'name' => $scodoc_semestre->titremois,
+                        'scodocId' => $scodoc_semestre->formsemestre_id
+                    ]);
             }
         }
     }

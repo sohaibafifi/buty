@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Repositories;
 
+use App\Models\Semestre;
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,22 +17,24 @@ class SemestresRepository implements RepositoryInterface
     public function all(?Model $parent)
     {
         $department = $parent->department;
+
         return $this->getJson(
-            'https://scoliut.univ-artois.fr/ScoDoc/' . $department->scodocId. '/Scolarite/Notes/formsemestre_list?formation_id='.$parent->scodocId,
+            $department->scodoc_url . '/' . $department->scodocId . '/Scolarite/Notes/formsemestre_list?formation_id=' . $parent->scodocId,
             [
                 'auth' => [$department->scodoc_user, $department->scodoc_password]
-                            ]
+            ]
         );
     }
 
     public function show($scodocId)
     {
-        $department = $parent->department;
+        $semestre = Semestre::where('scodocId', $scodocId)->first();
+        $department = $semestre->formation->department;
         return $this->getJson(
-            'https://scoliut.univ-artois.fr/ScoDoc/' . $department->scodocId. '/Scolarite/Notes/formsemestre_list?formsemestre_id='.$scodocId,
+            $department->scodoc_url . '/' . $department->scodocId . '/Scolarite/Notes/formsemestre_list?formsemestre_id=' . $scodocId,
             [
-                                'auth' => [$department->scodoc_user, $department->scodoc_password]
-                            ]
+                'auth' => [$department->scodoc_user, $department->scodoc_password]
+            ]
         );
     }
 }

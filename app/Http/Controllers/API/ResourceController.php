@@ -16,7 +16,7 @@ class ResourceController extends Controller
      */
     public function show($resource, $id)
     {
-        $model = "\\App\\" . Str::studly(Str::singular($resource));
+        $model = "\\App\\Models\\" . Str::studly(Str::singular($resource));
         $resource = "\\App\\Http\\Resources\\" . Str::studly(Str::singular($resource));
         if (class_exists($model) && class_exists($resource)) {
             return new $resource($model::find($id));

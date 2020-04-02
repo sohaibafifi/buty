@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Repositories;
 
-use App\Department;
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -24,10 +25,10 @@ class StudentsRepository implements RepositoryInterface
     public function getFromScodc(Department $department, $scodocId)
     {
         return $this->getJson(
-            'https://scoliut.univ-artois.fr/ScoDoc/' .  $department->scodocId. '/Scolarite/Notes/etud_info?format=json&etudid='.$scodocId,
+            $department->scodoc_url . '/' .  $department->scodocId . '/Scolarite/Notes/etud_info?format=json&etudid=' . $scodocId,
             [
-                                'auth' => [$department->scodoc_user, $department->scodoc_password]
-                            ]
+                'auth' => [$department->scodoc_user, $department->scodoc_password]
+            ]
         );
     }
 }

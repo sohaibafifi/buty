@@ -19,6 +19,7 @@ class CreateDepartmentsTable extends Migration
 
             $table->string('name');
             $table->string('scodocId');
+            $table->string('scodoc_url');
             $table->string('scodoc_user')->nullable();
             $table->string('scodoc_password')->nullable();
         });

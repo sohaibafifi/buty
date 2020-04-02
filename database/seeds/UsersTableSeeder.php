@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,13 +15,13 @@ class UsersTableSeeder extends Seeder
     {
         if (!User::where('email', 'sohaib.lafifi@univ-artois.fr')->exists()) {
             User::create([
-            'username' => 'sohaib.lafifi',
-            'email'    => 'sohaib.lafifi@univ-artois.fr',
-            'password' => Hash::make('password'),
-            'firstname'=> 'Sohaib',
-            'lastname' => 'LAFIFI',
-            'role'     => 'teacher'
-        ]);
+                'username' => 'sohaib.lafifi',
+                'email'    => 'sohaib.lafifi@univ-artois.fr',
+                'password' => Hash::make('password'),
+                'firstname' => 'Sohaib',
+                'lastname' => 'LAFIFI',
+                'role'     => 'teacher'
+            ]);
         }
     }
 }

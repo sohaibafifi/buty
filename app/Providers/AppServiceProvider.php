@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Group;
-use App\Semestre;
-use App\Formation;
-use App\Department;
+use App\Models\Group;
+use App\Models\Semestre;
+use App\Models\Formation;
+use App\Models\Department;
 use App\Observers\GroupObserver;
 use App\Observers\SemestreObserver;
 use App\Observers\FormationObserver;
