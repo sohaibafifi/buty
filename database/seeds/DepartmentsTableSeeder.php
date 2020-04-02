@@ -16,7 +16,7 @@ class DepartmentsTableSeeder extends Seeder
             'name' => 'Réseaux et Télécoms',
             'scodocId' => 'RT',
             'scodoc_user' => 'notes-api',
-            'scodoc_password' => 'progtr11'
+            'scodoc_password' => env('RT_SCODOC_PASSWORD', ''),
         ]);
     }
 }

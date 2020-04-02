@@ -19,10 +19,10 @@ class DepartmentObserver
         $scodoc_formations = (new FormationRepository())->all($department);
         if ($scodoc_formations) {
             foreach ($scodoc_formations as $scodoc_formation) {
-                $formation = $department->formations()->firstOrCreate([
-                        'name' => ($scodoc_formation->titre),
-                        'scodocId' => $scodoc_formation->formation_id
-                    ]);
+                $department->formations()->firstOrCreate([
+                    'name' => ($scodoc_formation->titre),
+                    'scodocId' => $scodoc_formation->formation_id
+                ]);
             }
         }
     }

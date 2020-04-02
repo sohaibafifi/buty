@@ -18,10 +18,10 @@ class FormationObserver
         $scodoc_semestres = (new SemestresRepository)->all($formation);
         if ($scodoc_semestres) {
             foreach ($scodoc_semestres as $scodoc_semestre) {
-                $semestre = $formation->semestres()->firstOrCreate([
-                                'name' => $scodoc_semestre->titremois,
-                                'scodocId' => $scodoc_semestre->formsemestre_id
-                            ]);
+                $formation->semestres()->firstOrCreate([
+                    'name' => $scodoc_semestre->titremois,
+                    'scodocId' => $scodoc_semestre->formsemestre_id
+                ]);
             }
         }
     }

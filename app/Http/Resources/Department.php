@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Semestre extends JsonResource
+class Department extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,7 +20,7 @@ class Semestre extends JsonResource
             'scodoc_id' => $this->scodoc_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'students' => User::collection($this->users()->where('role', 'student')->get())
+            'formations' => Formation::collection($this->formations)
         ];
     }
 }

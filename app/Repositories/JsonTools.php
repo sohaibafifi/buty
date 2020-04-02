@@ -2,15 +2,19 @@
 namespace App\Repositories;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+use GuzzleHttp\Exception\ServerException;
 
 trait JsonTools
 {
     protected function getJson($url, $headers = [])
     {
-        $client = new Client();
-        $response = $client->request('GET', $url, $headers);
-        return
-                (
+        $content = Cache::remember(Str::slug($url), 60 * 60, function () use ($url, $headers) {
+            try {
+                $client = new Client();
+                $response = $client->request('GET', $url, $headers);
+                return (
                     json_decode(
                         preg_replace(
                             '/ApoEtapeVDI\("(\w*)"\)(,?)/',
@@ -19,6 +23,11 @@ trait JsonTools
                         )
                      )
                 );
+            } catch (ServerException $e) {
+                return null;
+            }
+        });
+        return $content;
     }
 
 

@@ -1,6 +1,8 @@
 <?php
 
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\ResourceController;
+use App\Http\Controllers\API\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +15,6 @@
 |
 */
 
-Route::apiResource('users', Api\UserController::class)->only(['index', 'show']);
+Route::namespace('App\\Http\\Controllers\\API\\')->group(function () {
+    Route::get('{resource}/{id}', 'ResourceController@show');
+});

@@ -18,4 +18,11 @@ class Semestre extends Model
     {
         return $this->hasMany(Group::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot([
+            'bulletin'
+        ])->using(SemestreUser::class);;
+    }
 }

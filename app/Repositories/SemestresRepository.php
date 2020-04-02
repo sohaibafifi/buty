@@ -17,7 +17,7 @@ class SemestresRepository implements RepositoryInterface
         return $this->getJson(
             'https://scoliut.univ-artois.fr/ScoDoc/' . $department->scodocId. '/Scolarite/Notes/formsemestre_list?formation_id='.$parent->scodocId,
             [
-                                'auth' => [$department->scodoc_user, $department->scodoc_password]
+                'auth' => [$department->scodoc_user, $department->scodoc_password]
                             ]
         );
     }

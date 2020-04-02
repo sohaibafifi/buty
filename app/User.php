@@ -2,6 +2,7 @@
 
 namespace App;
 
+use SemestreUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -46,5 +47,12 @@ class User extends Authenticatable
     public function groups()
     {
         return $this->belongsToMany(Group::class);
+    }
+
+    public function semestres()
+    {
+        return $this->belongsToMany(Semestre::class)->withPivot([
+            'bulletin'
+        ])->using(SemestreUser::class);
     }
 }

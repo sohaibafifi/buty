@@ -1,8 +1,7 @@
 <?php
 
-use App\Department;
 use Illuminate\Foundation\Inspiring;
-use App\Repositories\FormationRepository;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +17,3 @@ use App\Repositories\FormationRepository;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
-
-
-
-Artisan::command('tests', function () {
-    echo (new FormationRepository)->all(Department::first());
-})->describe('quick test');

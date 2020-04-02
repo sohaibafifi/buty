@@ -4,9 +4,11 @@ namespace App\Observers;
 
 use App\User;
 use App\Group;
+use App\Semestre;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\GroupsRepository;
 use App\Repositories\StudentsRepository;
+use App\Repositories\BulletinsRepository;
 
 class GroupObserver
 {
@@ -31,11 +33,21 @@ class GroupObserver
                         'lastname' => $scodoc_student_info->nom,
                         'role'     => 'student',
                         'scodocId' => $scodoc_student_info->etudid,
+                        'scodoc_picture' => $scodoc_student_info->photo_url,
                         'nip'      => $scodoc_student_info->code_nip,
                         'ine'      => $scodoc_student_info->code_ine,
                 ]);
             }
             $group->users()->attach($user);
+            if ($scodoc_student_info->insemestre) {
+                foreach ($scodoc_student_info->insemestre as $insemestre) {
+                    $semestre = Semestre::where('scodocId', $insemestre->formsemestre_id)->first();
+                    if ($semestre) {
+                        $bulletin = (new BulletinsRepository)->show($semestre->formation->department, $semestre->scodocId, $user->scodocId);
+                        $semestre->users()->attach($user, ['bulletin' => json_encode($bulletin)]);
+                    }
+                }
+            }
         }
     }
 

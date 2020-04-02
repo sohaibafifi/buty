@@ -8,26 +8,21 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
-        "fideloper/proxy": "^4.0",
-        "guzzlehttp/guzzle": "~6.0",
-        "laravel/framework": "^6.2",
-        "laravel/nova": "~2.0",
-        "laravel/tinker": "^1.0"
+        "php": "^7.2.5",
+        "doctrine/dbal": "^2.10",
+        "fideloper/proxy": "^4.2",
+        "fruitcake/laravel-cors": "^1.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "laravel/framework": "^7.0",
+        "laravel/tinker": "^2.0"
     },
     "require-dev": {
-        "facade/ignition": "^1.4",
-        "fzaninotto/faker": "^1.4",
-        "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^3.0",
-        "phpunit/phpunit": "^8.0"
+        "facade/ignition": "^2.0",
+        "fzaninotto/faker": "^1.9.1",
+        "mockery/mockery": "^1.3.1",
+        "nunomaduro/collision": "^4.1",
+        "phpunit/phpunit": "^8.5"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
-        }
-    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
@@ -55,15 +50,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "pre-update-cmd": [
-          "@php -r \"mkdir('./resources/lang/vendor/nova', 0776, true);\"",
-          "@php -r \"copy('https://raw.githubusercontent.com/franzdumfart/laravel-nova-localizations/master/lang/fr.json', './resources/lang/vendor/nova/fr.json') || exit (1);\"",
-          "@php -r \"mkdir('./resources/lang/vendor/nova/fr', 0776, true);\"",
-          "@php -r \"copy('https://raw.githubusercontent.com/franzdumfart/laravel-nova-localizations/master/lang/fr/validation.php', './resources/lang/vendor/nova/fr/validation.php') || exit (1);\""
-        ],
-        "post-update-cmd": [
-            "@php artisan nova:publish"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
