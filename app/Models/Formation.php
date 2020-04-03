@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\Interfaces\VisibleInterface;
 
 class Formation extends Model
 {
     use Traits\Serializable;
+    use Traits\VisibleScopeTrait;
 
     protected $fillable = [
         'name', 'scodocId',

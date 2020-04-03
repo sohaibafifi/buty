@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\Interfaces\VisibleInterface;
 
-class Department extends Model
+class Department extends Model implements VisibleInterface
 {
     use Traits\Serializable;
+    use Traits\VisibleScopeTrait;
 
     protected $serveOnApi = true;
 
@@ -24,5 +27,10 @@ class Department extends Model
     public function formations()
     {
         return $this->hasMany(Formation::class);
+    }
+
+    public function visible(Builder $builder)
+    {
+        return $builder;
     }
 }
