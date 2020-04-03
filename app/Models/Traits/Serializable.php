@@ -7,7 +7,7 @@ use ReflectionClass;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
- * meta trait
+ * serializable trait
  */
 trait Serializable
 {
