@@ -17,7 +17,7 @@ class ResourceController extends Controller
     public function show($resource, $id)
     {
         $model = "\\App\\Models\\" . Str::studly(Str::singular($resource));
-        if (class_exists($model)) {
+        if (class_exists($model) && (new $model)->getTable() == $resource &&  $model::servable()) {
             $item = $model::find($id);
             $this->authorize('view', $item);
             return $item;

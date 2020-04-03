@@ -2,9 +2,7 @@
 
 namespace App\Models\Traits;
 
-use ErrorException;
 use ReflectionClass;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * serializable trait
@@ -13,14 +11,18 @@ trait Serializable
 {
     use Meta;
 
+    public static function servable()
+    {
+        $model = new static;
+        return isset($model->serveOnApi) ? $model->serveOnApi : false;
+    }
+
     public function toArray()
     {
         $relations = [];
-        $relationships = $this->getRelationships();
-        foreach ($relationships as $relation_key => $relationship) {
-            $class = $relationship['model'];
-            $relations[$relation_key] = [
-                'meta' => $class::metaForIndex(),
+        foreach ($this->getRelationships() as $key => $relationship) {
+            $relations[$key] = [
+                'meta' => $relationship['model']::metaForIndex(),
                 'data' => $relationship['data']
             ];
         }
@@ -31,9 +33,8 @@ trait Serializable
     {
         $model = new static;
         foreach ($this->getRelations() as $key => $value) {
-            $method = (new ReflectionClass($model))->getMethod($key);
-            $return = $method->invoke($model);
-            yield $method->getName() => [
+            $return = (new ReflectionClass($model))->getMethod($key)->invoke($model);
+            yield $key => [
                 'type' => (new ReflectionClass($return))->getShortName(),
                 'model' => (new ReflectionClass($return->getRelated()))->getName(),
                 'data' => $value

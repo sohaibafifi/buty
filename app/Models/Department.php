@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use Traits\Serializable;
+
+    protected $serveOnApi = true;
+
     protected $fillable = [
         'name', 'scodocId', 'scodoc_url'
     ];

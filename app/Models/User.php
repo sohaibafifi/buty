@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use SemestreUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
