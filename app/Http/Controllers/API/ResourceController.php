@@ -18,7 +18,12 @@ class ResourceController extends Controller
     public function show(ApiRequest $request, $resource, $id)
     {
         $model = "\\App\\Models\\" . Str::studly(Str::singular($resource));
-        if (class_exists($model) && (new $model)->getTable() == $resource &&  $model::servable()) {
+        if (
+            class_exists($model)
+            && (new $model)->getTable() == $resource
+            && method_exists($model, 'servable')
+            &&  $model::servable()
+        ) {
             $item = $model::findOrFail($id);
             $this->authorize('view', $item);
             return $item;

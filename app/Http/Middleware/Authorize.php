@@ -14,7 +14,10 @@ class Authorize
 
     public function handle($request, $next)
     {
-        if (!$this->apiRequest->resource()::authorizedToViewAny($this))
+        if (
+            method_exists($this->apiRequest->resource(), 'authorizable')
+            && !$this->apiRequest->resource()::authorizedToViewAny($this)
+        )
             abort(403);
         return $next($request);
     }
