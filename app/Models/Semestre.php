@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Semestre extends Model
 {
+    use Traits\Serializable;
     protected $fillable = [
         'name', 'scodocId',
     ];

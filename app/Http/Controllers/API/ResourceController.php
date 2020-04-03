@@ -17,11 +17,10 @@ class ResourceController extends Controller
     public function show($resource, $id)
     {
         $model = "\\App\\Models\\" . Str::studly(Str::singular($resource));
-        $resource = "\\App\\Http\\Resources\\" . Str::studly(Str::singular($resource));
-        if (class_exists($model) && class_exists($resource)) {
+        if (class_exists($model)) {
             $item = $model::find($id);
             $this->authorize('view', $item);
-            return new $resource($item);
+            return $item;
         } else {
             return abort(404);
         }
