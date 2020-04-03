@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Support\Str;
+use App\Http\Requests\ApiRequest;
 use App\Http\Controllers\Controller;
 
 class ResourceController extends Controller
@@ -14,11 +15,11 @@ class ResourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($resource, $id)
+    public function show(ApiRequest $request, $resource, $id)
     {
         $model = "\\App\\Models\\" . Str::studly(Str::singular($resource));
         if (class_exists($model) && (new $model)->getTable() == $resource &&  $model::servable()) {
-            $item = $model::find($id);
+            $item = $model::findOrFail($id);
             $this->authorize('view', $item);
             return $item;
         } else {
