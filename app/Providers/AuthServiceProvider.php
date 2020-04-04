@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -28,5 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::guessPolicyNamesUsing(function ($class) {
             return '\\App\\Policies\\' . class_basename($class) . 'Policy';
         });
+
+        Passport::routes();
+        Passport::cookie('buty_token');
     }
 }
