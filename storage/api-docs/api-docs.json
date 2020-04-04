@@ -21,7 +21,11 @@
                         "description": "Resource name",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "departments",
+                                "formations"
+                            ]
                         }
                     },
                     {
@@ -40,6 +44,9 @@
                     },
                     "400": {
                         "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource not Found"
                     }
                 },
                 "security": [

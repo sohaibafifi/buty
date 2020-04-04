@@ -36,7 +36,8 @@ class ResourceController extends Controller
      *          required=true,
      *          in="path",
      *          @OA\Schema(
-     *              type="string"
+     *              type="string",
+     *              enum={"departments", "formations"}
      *          )
      *      ),
      *      @OA\Parameter(
@@ -53,6 +54,7 @@ class ResourceController extends Controller
      *          description="successful operation"
      *       ),
      *       @OA\Response(response=400, description="Bad request"),
+     *       @OA\Response(response=404, description="Resource not Found"),
      *       security={
      *           {"api_key_security_example": {}}
      *       }
