@@ -34,6 +34,12 @@ trait Meta
     public function metaForDetail()
     {
         return array_merge($this->meta(), [
+            'links' => [
+                'self' => route('resources.show', [
+                    'resource' => $this->meta()['uriKey'],
+                    'id' => $this->id
+                ])
+            ],
             'authorizedToView' => $this->authorizedToView(),
             'authorizedToUpdate' => $this->authorizedToUpdate(),
             'authorizedToDelete' => $this->authorizedToDelete(),

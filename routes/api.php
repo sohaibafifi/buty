@@ -16,5 +16,6 @@ use App\Http\Controllers\API\DepartmentController;
 */
 
 Route::namespace('App\\Http\\Controllers\\API\\')->group(function () {
-    Route::get('{resource}/{id}', 'ResourceController@show')->middleware('auth.basic.once');
+    Route::get('{resource}/{id}', 'ResourceController@show')
+        ->name('resources.show')->middleware('auth.basic.once');
 });
