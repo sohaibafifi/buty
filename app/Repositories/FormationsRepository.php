@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 class FormationRepository implements RepositoryInterface
 {
     use JsonTools;
-    public function all(?Model $parent)
+    public function all(?Model $department)
     {
-        $scodocId = $parent->scodocId;
+        $scodocId = $department->scodocId;
         return $this->getJson(
-            $parent->scodoc_url . '/' . $scodocId . '/Scolarite/Notes/formation_list',
+            $department->scodoc_url . '/' . $scodocId . '/Scolarite/Notes/formation_list',
             [
-                'auth' => [$parent->scodoc_user, $parent->scodoc_password]
+                'auth' => [$department->scodoc_user, $department->scodoc_password]
             ]
         );
     }

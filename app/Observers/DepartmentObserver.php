@@ -34,7 +34,19 @@ class DepartmentObserver
      */
     public function updated(Department $department)
     {
-        //
+        $scodoc_formations = collect((new FormationRepository())->all($department));
+        if ($scodoc_formations) {
+            $ids = $scodoc_formations->pluck('formation_id');
+            $department->formations()->whereNotIn('scodocId', $ids)->delete();
+            $department->formations()->onlyTrashed()->whereIn('scodocId', $ids)->restore();
+            foreach ($scodoc_formations as $scodoc_formation) {
+                $department->formations()
+                    ->updateOrCreate(
+                        ['scodocId' => $scodoc_formation->formation_id],
+                        ['name' => ($scodoc_formation->titre)]
+                    );
+            }
+        }
     }
 
     /**

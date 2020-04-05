@@ -40,7 +40,20 @@ class SemestreObserver
      */
     public function updated(Semestre $semestre)
     {
-        //
+        $scodoc_partitions = collect((new \App\Repositories\GroupsRepository)->all($semestre));
+        $scodoc_groups = $scodoc_partitions->pluck('group')->flatten();
+        if ($scodoc_groups) {
+            $ids = $scodoc_groups->pluck('formsemestre_id');
+            $semestre->groups()->whereNotIn('scodocId', $ids)->delete();
+            $semestre->groups()->onlyTrashed()->whereIn('scodocId', $ids)->restore();
+            foreach ($scodoc_groups as $scodoc_group) {
+                $semestre->groups()
+                    ->updateOrCreate(
+                        ['scodocId' => $scodoc_group->group_id],
+                        ['name' => $scodoc_group->partition_name . ' ' . $scodoc_group->group_name]
+                    );
+            }
+        }
     }
 
     /**

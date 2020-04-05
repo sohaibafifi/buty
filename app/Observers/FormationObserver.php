@@ -35,7 +35,19 @@ class FormationObserver
      */
     public function updated(Formation $formation)
     {
-        //
+        $scodoc_semestres = collect((new SemestresRepository)->all($formation));
+        if ($scodoc_semestres) {
+            $ids = $scodoc_semestres->pluck('formsemestre_id');
+            $formation->semestres()->whereNotIn('scodocId', $ids)->delete();
+            $formation->semestres()->onlyTrashed()->whereIn('scodocId', $ids)->restore();
+            foreach ($scodoc_semestres as $scodoc_semestre) {
+                $formation->semestres()
+                    ->updateOrCreate(
+                        ['scodocId' => $scodoc_semestre->formsemestre_id],
+                        ['name' => $scodoc_semestre->titremois]
+                    );
+            }
+        }
     }
 
     /**
