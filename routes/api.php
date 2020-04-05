@@ -16,6 +16,10 @@ use App\Http\Controllers\API\DepartmentController;
 */
 
 Route::namespace('App\\Http\\Controllers\\API\\')->group(function () {
+    Route::get('users/{user}/calendar', 'CalendarController@userCal')
+        ->name('calendar.user')->middleware('auth.basic.once');
+    Route::get('groups/{group}/calendar', 'CalendarController@groupCal')
+        ->name('calendar.group')->middleware('auth.basic.once');
     Route::get('{resource}/{id}', 'ResourceController@show')
         ->name('resources.show')->middleware('auth.basic.once');
 });

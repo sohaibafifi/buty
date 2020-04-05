@@ -2,21 +2,22 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Requests\ApiRequest;
+use App\Http\Requests\ResourceRequest;
 
 class Authorize
 {
-    private $apiRequest;
-    public function __construct(ApiRequest $request)
+    private $resourceRequest;
+    public function __construct(ResourceRequest $request)
     {
-        $this->apiRequest = $request;
+        $this->resourceRequest = $request;
     }
 
     public function handle($request, $next)
     {
         if (
-            method_exists($this->apiRequest->resource(), 'authorizable')
-            && !$this->apiRequest->resource()::authorizedToViewAny($this)
+            $this->resourceRequest->isRequested()
+            && method_exists($this->resourceRequest->resource(), 'authorizable')
+            && !$this->resourceRequest->resource()::authorizedToViewAny($this)
         )
             abort(403);
         return $next($request);

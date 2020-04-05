@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Support\Str;
-use App\Http\Requests\ApiRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ResourceRequest;
 
 /**
  * @OA\Info(
@@ -27,7 +27,7 @@ class ResourceController extends Controller
      * @OA\Get(
      *      path="/api/{resource}/{id}",
      *      operationId="show",
-     *      tags={"Resource"},
+     *      tags={"Resources"},
      *      summary="Get Resource information",
      *      description="Returns resource",
      *      @OA\Parameter(
@@ -54,6 +54,7 @@ class ResourceController extends Controller
      *          description="successful operation"
      *       ),
      *       @OA\Response(response=400, description="Bad request"),
+     *       @OA\Response(response=403, description="This action is unauthorized"),
      *       @OA\Response(response=404, description="Resource not Found"),
      *       security={
      *           {"api_key_security_example": {}}
@@ -62,7 +63,7 @@ class ResourceController extends Controller
      *
      * Get Resource information
      */
-    public function show(ApiRequest $request, $resource, $id)
+    public function show(ResourceRequest $request, $resource, $id)
     {
         $model = "\\App\\Models\\" . Str::studly(Str::singular($resource));
         if (

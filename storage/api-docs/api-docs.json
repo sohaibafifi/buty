@@ -6,10 +6,92 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/users/{id}/calendar": {
+            "get": {
+                "tags": [
+                    "User",
+                    "Calendar"
+                ],
+                "summary": "Get user calendar",
+                "description": "Returns user calendar",
+                "operationId": "userCal",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "403": {
+                        "description": "This action is unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
+        "/api/groups/{id}/calendar": {
+            "get": {
+                "tags": [
+                    "Group",
+                    "Calendar"
+                ],
+                "summary": "Get Resource information",
+                "description": "Returns group calendar",
+                "operationId": "userCal",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "group id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "403": {
+                        "description": "This action is unauthorized"
+                    },
+                    "404": {
+                        "description": "Resource not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key_security_example": []
+                    }
+                ]
+            }
+        },
         "/api/{resource}/{id}": {
             "get": {
                 "tags": [
-                    "Resource"
+                    "Resources"
                 ],
                 "summary": "Get Resource information",
                 "description": "Returns resource",
@@ -44,6 +126,9 @@
                     },
                     "400": {
                         "description": "Bad request"
+                    },
+                    "403": {
+                        "description": "This action is unauthorized"
                     },
                     "404": {
                         "description": "Resource not Found"

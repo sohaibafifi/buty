@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ApiRequest extends FormRequest
+class ResourceRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,6 +17,11 @@ class ApiRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function isRequested()
+    {
+        return $this->route('resource');
     }
 
     public function resource()

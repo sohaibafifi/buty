@@ -32,4 +32,10 @@ class UserPolicy
     {
         return true;
     }
+
+    public function viewCalendar(?User $user, User $model)
+    {
+        return true;
+        return $model->is($user);
+    }
 }
