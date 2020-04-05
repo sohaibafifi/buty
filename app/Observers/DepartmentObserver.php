@@ -15,7 +15,6 @@ class DepartmentObserver
      */
     public function created(Department $department)
     {
-        info($department);
         $scodoc_formations = (new FormationRepository())->all($department);
         if ($scodoc_formations) {
             foreach ($scodoc_formations as $scodoc_formation) {
