@@ -22,9 +22,10 @@ class Department extends Model implements VisibleInterface
         'scodoc_password', 'scodoc_user',
     ];
 
-    protected $with = [
+    protected $load = [
         'formations',
     ];
+
 
     public function formations()
     {

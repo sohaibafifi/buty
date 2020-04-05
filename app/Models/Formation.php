@@ -13,12 +13,14 @@ class Formation extends Model
     use Traits\VisibleScopeTrait;
     use SoftDeletes;
 
-    protected $fillable = [
-        'name', 'scodocId',
+    protected $serveOnApi = true;
+
+    protected $load = [
+        'semestres',
     ];
 
-    protected $with = [
-        'semestres',
+    protected $fillable = [
+        'name', 'scodocId',
     ];
 
     public function department()

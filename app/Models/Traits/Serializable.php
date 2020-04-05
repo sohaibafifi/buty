@@ -11,6 +11,13 @@ trait Serializable
 {
     use Meta;
 
+    protected function loads()
+    {
+        $model = new static;
+        return isset($model->load) ? $model->load : [];
+    }
+
+
     public static function servable()
     {
         $model = new static;
@@ -20,7 +27,7 @@ trait Serializable
     public function toArray()
     {
         $relations = [];
-        foreach ($this->getRelationships() as $key => $relationship) {
+        foreach ($this->load($this->loads())->getRelationships() as $key => $relationship) {
             $relations[$key] = [
                 'meta' => $relationship['model']::metaForIndex(),
                 'data' => $relationship['data']
