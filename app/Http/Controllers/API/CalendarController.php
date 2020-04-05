@@ -4,9 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Models\Group;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\ResourceRequest;
 
 class CalendarController extends Controller
@@ -47,10 +48,12 @@ class CalendarController extends Controller
         if (!$user->cal || !filter_var($user->cal, FILTER_VALIDATE_URL)) {
             return abort(404);
         }
-        $response = Http::get($user->cal);
+        $response =  Cache::remember(Str::slug($user->cal), 60 * 60, function () use ($user) {
+            return Http::get($user->cal)->body();
+        });
         return response()->streamDownload(
             function () use ($response) {
-                echo $response->body();
+                echo $response;
             },
             $user->name . '.ics',
             [
@@ -95,10 +98,12 @@ class CalendarController extends Controller
         if (!$group->cal || !filter_var($group->cal, FILTER_VALIDATE_URL)) {
             return abort(404);
         }
-        $response = Http::get($group->cal);
+        $response =  Cache::remember(Str::slug($group->cal), 60 * 60, function () use ($group) {
+            return Http::get($group->cal)->body();
+        });
         return response()->streamDownload(
             function () use ($response) {
-                echo $response->body();
+                echo $response;
             },
             $group->name . '.ics',
             [
