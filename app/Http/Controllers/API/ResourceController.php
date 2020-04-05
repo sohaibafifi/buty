@@ -73,7 +73,7 @@ class ResourceController extends Controller
         ) {
             $item = $model::findOrFail($id);
             $this->authorize('view', $item);
-            return $item;
+            return method_exists($item, 'loads') ? $item->load($item->loads()) : $item;
         } else {
             return abort(404);
         }
