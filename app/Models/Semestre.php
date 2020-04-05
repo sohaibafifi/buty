@@ -11,9 +11,16 @@ class Semestre extends Model
     use Traits\VisibleScopeTrait;
     use SoftDeletes;
 
+    protected $serveOnApi = true;
+
     protected $fillable = [
         'name', 'scodocId',
     ];
+
+    protected $load = [
+        'groups', 'users',
+    ];
+
     public function formation()
     {
         return $this->belongsTo(Formation::class);
@@ -26,8 +33,6 @@ class Semestre extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot([
-            'bulletin'
-        ])->using(SemestreUser::class);;
+        return $this->belongsToMany(User::class);
     }
 }

@@ -29,7 +29,7 @@ trait Serializable
         $relations = [];
         foreach ($this->getRelationships() as $key => $relationship) {
             $relations[$key] = [
-                'meta' => $relationship['model']::metaForIndex(),
+                'meta' => method_exists($relationship['model'], 'metaForIndex') ? $relationship['model']::metaForIndex() : [],
                 'data' => $relationship['data']
             ];
         }
