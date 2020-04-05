@@ -27,6 +27,7 @@ trait Meta
         return [
             'model' => static::class,
             'table' => Str::snake(Str::pluralStudly(class_basename(static::class))),
+            'uriKey' => Str::snake(Str::pluralStudly(class_basename(static::class))),
         ];
     }
 
