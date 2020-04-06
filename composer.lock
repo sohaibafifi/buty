@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5dcaf83ba00e383e3f34a0c71614166f",
+    "content-hash": "7f23eb168aa2b2c1676b696904130bbf",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5807,6 +5807,49 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
+        },
+        {
+            "name": "laravel-frontend-presets/tailwindcss",
+            "version": "4.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel-frontend-presets/tailwindcss.git",
+                "reference": "dfcda6ad905db02d49e6b095858b63ff88579b48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel-frontend-presets/tailwindcss/zipball/dfcda6ad905db02d49e6b095858b63ff88579b48",
+                "reference": "dfcda6ad905db02d49e6b095858b63ff88579b48",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^7.0",
+                "laravel/ui": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelFrontendPresets\\TailwindCssPreset\\TailwindCssPresetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelFrontendPresets\\TailwindCssPreset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel frontend preset for Tailwind CSS",
+            "keywords": [
+                "laravel",
+                "preset",
+                "tailwindcss"
+            ],
+            "time": "2020-04-04T02:33:20+00:00"
         },
         {
             "name": "maximebf/debugbar",
