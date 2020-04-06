@@ -30,13 +30,16 @@ class CalendarController extends Controller
      *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="successful operation"
+     *          description="successful operation",
+     *          @OA\MediaType(
+     *                  mediaType="application/json"
+     *          )
      *       ),
      *       @OA\Response(response=400, description="Bad request"),
      *       @OA\Response(response=403, description="This action is unauthorized"),
      *       @OA\Response(response=404, description="Resource not Found"),
-     *       security={
-     *           {"api_key_security_example": {}}
+     *      security={
+     *           {"basic_auth": {}}
      *       }
      *     )
      *
@@ -80,7 +83,10 @@ class CalendarController extends Controller
      *      ),
      *      @OA\Response(
      *          response=200,
-     *          description="successful operation"
+     *          description="successful operation",
+     *          @OA\MediaType(
+     *                  mediaType="application/json"
+     *          )
      *       ),
      *       @OA\Response(response=400, description="Bad request"),
      *       @OA\Response(response=403, description="This action is unauthorized"),

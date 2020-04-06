@@ -28,7 +28,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -42,7 +45,7 @@
                 },
                 "security": [
                     {
-                        "api_key_security_example": []
+                        "basic_auth": []
                     }
                 ]
             }
@@ -69,7 +72,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -122,7 +128,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -139,6 +148,36 @@
                         "api_key_security_example": []
                     }
                 ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "api_key": {
+                "type": "apiKey",
+                "description": "Auth using api key",
+                "name": "api_key",
+                "in": "header"
+            },
+            "basic_auth": {
+                "type": "http",
+                "description": "Basic auth",
+                "scheme": "basic",
+                "in": "header"
+            },
+            "passport": {
+                "type": "oauth2",
+                "description": "Laravel passport oauth2 security.",
+                "in": "header",
+                "scheme": "https",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://localhost/oauth/authorize",
+                        "tokenUrl": "http://localhost/oauth/token",
+                        "refreshUrl": "http://localhost/token/refresh",
+                        "scopes": []
+                    }
+                }
             }
         }
     }
