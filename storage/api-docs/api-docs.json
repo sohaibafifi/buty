@@ -172,9 +172,9 @@
                 "scheme": "https",
                 "flows": {
                     "password": {
-                        "authorizationUrl": "http://localhost/oauth/authorize",
-                        "tokenUrl": "http://localhost/oauth/token",
-                        "refreshUrl": "http://localhost/token/refresh",
+                        "authorizationUrl": "https://buty.test/oauth/authorize",
+                        "tokenUrl": "https://buty.test/oauth/token",
+                        "refreshUrl": "https://buty.test/token/refresh",
                         "scopes": []
                     }
                 }

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,4 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', '\App\Http\Controllers\PageController@root');
+Route::namespace('App\\Http\\Controllers\\')->group(function () {
+
+    Route::get('/', 'PageController@root')->name('root');
+
+    Auth::routes([
+        'register' => false, // Registration Routes...
+        'reset' => false, // Password Reset Routes...
+        'verify' => false, // Email Verification Routes...
+    ]);
+
+    Route::get('/home', 'PageController@home')->name('home')->middleware('auth');
+});

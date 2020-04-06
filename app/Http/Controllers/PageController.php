@@ -10,4 +10,10 @@ class PageController extends Controller
     {
         return redirect(config('l5-swagger.routes.api'), 302);
     }
+
+
+    public function home()
+    {
+        return view('home');
+    }
 }
