@@ -25,4 +25,5 @@ Route::namespace('App\\Http\\Controllers\\')->group(function () {
     ]);
 
     Route::get('/home', 'PageController@home')->name('home')->middleware('auth');
+    Route::get('/profile', 'PageController@profile')->name('profile')->middleware('auth');
 });
