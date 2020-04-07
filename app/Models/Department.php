@@ -23,7 +23,7 @@ class Department extends Model implements VisibleInterface
     ];
 
     protected $load = [
-        'formations',
+        'formations'
     ];
 
 
@@ -35,5 +35,10 @@ class Department extends Model implements VisibleInterface
     public function visible(Builder $builder)
     {
         return $builder;
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

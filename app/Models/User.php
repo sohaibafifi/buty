@@ -51,13 +51,18 @@ class User extends Authenticatable
 
     public function groups()
     {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Group::class)->withTimestamps();
     }
 
     public function semestres()
     {
         return $this->belongsToMany(Semestre::class)->withPivot([
             'bulletin'
-        ])->using(SemestreUser::class);
+        ])->using(SemestreUser::class)->withTimestamps();
+    }
+
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class)->withTimestamps();
     }
 }

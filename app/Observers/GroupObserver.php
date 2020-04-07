@@ -41,10 +41,13 @@ class GroupObserver
             $group->users()->attach($user);
             if ($scodoc_student_info->insemestre) {
                 foreach ($scodoc_student_info->insemestre as $insemestre) {
-                    $semestre = Semestre::where('scodocId', $insemestre->formsemestre_id)->first();
+                    $semestre = Semestre::where('scodocId', $insemestre->formsemestre_id)
+                        ->with('formation.department')->first();
                     if ($semestre) {
                         $bulletin = (new BulletinsRepository)->show($semestre->formation->department, $semestre->scodocId, $user->scodocId);
                         $semestre->users()->attach($user, ['bulletin' => json_encode($bulletin)]);
+                        if ($semestre->formation && $semestre->formation->department)
+                            $semestre->formation->department->users()->attach($user);
                     }
                 }
             }
